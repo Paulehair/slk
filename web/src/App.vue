@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar app color="orange" dark>
-      <v-title dark>Salika Pagination</v-title>
+      <h1>Salika Pagination</h1>
       <v-spacer></v-spacer>
     </v-app-bar>
 

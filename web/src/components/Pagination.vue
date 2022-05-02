@@ -3,7 +3,7 @@
     <v-data-table
       :headers="headers"
       :items="movies"
-      :items-per-page="100000"
+      :items-per-page="15"
       class="elevation-1"
     ></v-data-table>
   </v-container>
@@ -24,7 +24,7 @@ export default {
   mounted() {
     this.$http
       .get("/movies", {
-        query: {
+        params: {
           limit: 10000
         }
       })
