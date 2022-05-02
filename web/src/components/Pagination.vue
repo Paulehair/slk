@@ -25,10 +25,12 @@ export default {
     this.$http
       .get("/movies", {
         params: {
-          limit: 10000
+          limit: 200
         }
       })
       .then(res => (this.movies = res.data));
+
+    this.$http.get("/count_pages").then(res => console.log(res.data));
   }
 };
 </script>

@@ -79,18 +79,9 @@ func Movies(w http.ResponseWriter, r *http.Request) {
 }
 
 func Counter(w http.ResponseWriter, r *http.Request) {
-	reqbody := struct {
-		Limit int `json:"limit"`
-	}{
-		0,
-	}
-	err := json.NewDecoder(r.Body).Decode(&reqbody)
-	if err != nil {
-		log.Println(err.Error())
-		reqbody.Limit = 15
-	}
+	limit, _ := strconv.Atoi(r.FormValue("limit"))
 
-	count, err := mw.CountPages(reqbody.Limit)
+	count, err := mw.CountPages(limit)
 	if err != nil {
 		json.NewEncoder(w).Encode(err.Error())
 	}
