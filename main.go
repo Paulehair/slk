@@ -5,6 +5,7 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strconv"
 
 	mw "github.com/blyndusk/salika-pagination/internal/middlewares"
 	"github.com/gorilla/handlers"
@@ -25,21 +26,23 @@ func main() {
 
 func Movies(w http.ResponseWriter, r *http.Request) {
 	reqbody := struct {
-		Limit   uint   `json:"limit"`
-		Offset  uint   `json:"offset"`
-		OrderBy string `json:"order_by"`
-		Asc     string `json:"asc"`
+		Limit   int
+		Offset  int
+		OrderBy string
+		Asc     string
 	}{
 		0,
 		0,
 		"",
 		"",
 	}
-	err := json.NewDecoder(r.Body).Decode(&reqbody)
-	if err != nil {
-		reqbody.Limit = 15
-		reqbody.Offset = 0
-	}
+
+	var err error
+
+	reqbody.Limit, err = strconv.Atoi(r.FormValue("limit"))
+	reqbody.Offset, err = strconv.Atoi(r.FormValue("offset"))
+	reqbody.OrderBy = r.FormValue("order_by")
+	reqbody.Asc = r.FormValue("asc")
 
 	switch reqbody.OrderBy {
 	case "":

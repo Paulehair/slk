@@ -12,7 +12,7 @@ type Movie struct {
 	TotalRental uint   `json:"total_rental"`
 }
 
-func GetMoviesWithPages(asc string, orderby string, limit, offset uint) ([]Movie, error) {
+func GetMoviesWithPages(asc string, orderby string, limit, offset int) ([]Movie, error) {
 	dbclient := pkg.GetDBClient()
 	rows, err := dbclient.Query(fmt.Sprintf(`
 		WITH film_table AS (
